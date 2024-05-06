@@ -90,25 +90,26 @@ button {
 
     color: beige;
 
-    background-color: #081c07;
+    background-color: #258020;
 
     border-radius: 5%;
 
     width: 40%;
     height: 15%;
 
+    cursor: grab;
+
 }
 
-.media-item-drag {
+.media-item::drag {
 
-    position: absolute;
+    cursor: grabbing;
 
-    text-align: center;
+}
 
-    color: beige;
+canvas {
 
-    background-color: #081c07;
-
-    border-radius: 5%;
+    width: 100%;
+    height: 100%;
 
 }

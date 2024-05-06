@@ -1,22 +1,61 @@
-var draggingObject = null;
+var grabX = 0;
+var grabY = 0;
 
-function makeDraggable(element) {
+var currentAudioDuration = 0;
 
-    element.onmousedown = function(e) {
+function pickItem(e) {
 
-        var copy = document.createElement("div");
-        copy.className = "media-item-drag";
+    grabX = e.offsetX;
+    grabY = e.offsetY;
 
-        copy.innerText = "Hello world!";
+    var reader = new FileReader();
 
-        copy.style.top = element.offsetTop + "px";
-        copy.style.left = element.offsetLeft + "px";
+    var audio = document.createElement("audio");
 
-        copy.style.width = element.width;
-        copy.style.height = element.height;
+    reader.onload = function(ev) {
 
-        document.body.appendChild(copy);
+        audio.src = ev.target.result;
+
+        audio.addEventListener("durationchange", function() {
+
+            currentAudioDuration = audio.duration;
+            
+        });
 
     }
+
+    reader.readAsDataURL(e.srcElement.children[0].files[0]);
+
+}
+
+function dragItem(e) {
+
+    var clientRect = e.srcElement.getBoundingClientRect();
+
+    shadow = {
+        x: e.clientX - grabX,
+        y: e.clientY - grabY,
+
+        width: currentAudioDuration,
+        height: clientRect.height
+    };
+
+}
+
+function dropItem(e) {
+
+    var timestamp = (e.clientX - grabX - canvas_position.left - OFFSET) / pixels_per_second + timeline_start;
+
+    insertMediaItem(new MediaItem(e.srcElement.children[0].files[0], timestamp, shadow.width));
+
+    shadow = {
+
+        x: 0,
+        y: 0,
+
+        width: 0,
+        height: 0
+
+    };
 
 }
