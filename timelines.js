@@ -5,42 +5,12 @@ canvas.height = window.innerHeight - document.getElementById("header").getBoundi
 document.getElementById("timeline").appendChild(canvas);
 var pencil = canvas.getContext("2d");
 
-window.onresize = function(e) {
+window.addEventListener("resize", function(e) {
 
     canvas.width = window.innerWidth - document.getElementById("media").getBoundingClientRect().width - document.getElementById("options").getBoundingClientRect().width;
     canvas.height = window.innerHeight - document.getElementById("header").getBoundingClientRect().height;
 
-}
-
-window.onmousewheel = function(e) {
-
-    if (e.deltaY < 0) {
-
-        //Zoom in
-        timeline_span /= 1.1;
-
-        if (timeline_span < MINIMAL_TIMELINE_SPAN) {
-
-            timeline_span = MINIMAL_TIMELINE_SPAN;
-
-        }
-
-    }
-
-    if (e.deltaY > 0) {
-
-        //Zoom out
-        timeline_span *= 1.1
-
-        if (timeline_span > MAXIMAL_TIMELINE_SPAN) {
-
-            timeline_span = MAXIMAL_TIMELINE_SPAN;
-
-        }
-
-    }
-
-}
+});
 
 var timeline_start = 0;
 var timeline_span = 60;
@@ -112,13 +82,43 @@ function timeDisplay(seconds) {
 
     if (remainder < 10) {
 
-        remainder = "0" + remainder
+        remainder = "0" + remainder;
 
     }
 
     return Math.floor(seconds / 60) + ":" + remainder;
 
 }
+
+function timeToX(timestamp) {
+
+    return (timestamp - timeline_start) * pixels_per_second + OFFSET;
+
+}
+
+function xToTime(x) {
+
+    return (x - OFFSET) / pixels_per_second + timeline_start;
+
+}
+
+
+
+function closestTimestamp(timestamp, duration) {
+
+    //Get the closest position where the media item can be dropped
+    if (timestamp < 0) {
+
+        return 0;
+
+    }
+
+
+    return timestamp;
+
+}
+
+
 
 var canvas_position = canvas.getBoundingClientRect();
 
@@ -133,8 +133,18 @@ function renderTimelines() {
     pencil.clearRect(0, 0, canvas.width, canvas.height);
 
     //Display default timeline
+    if (timeToX(0) > 0) {
+
+        offset = timeToX(0);
+
+    } else {
+
+        offset = 0;
+
+    }
+
     pencil.fillStyle = "#757180";
-    pencil.fillRect(OFFSET, heightOfTrack(0), canvas.width - OFFSET, canvas.height/MAX_TIMELINES);
+    pencil.fillRect(offset, heightOfTrack(0), canvas.width - offset, canvas.height/MAX_TIMELINES);
 
     //Display timestamps
     pencil.fillStyle = "#ffffff";
