@@ -104,17 +104,85 @@ function xToTime(x) {
 
 
 
+function getObstacle(timestamp, duration) {
+
+    for (var i=0;i<items.length;i++) {
+
+        if ((items[i].time > timestamp && items[i].time < timestamp + duration) || (items[i].time + items[i].duration > timestamp && items[i].time + items[i].duration < timestamp + duration) || (items[i].time > timestamp && items[i].time + items[i].duration < timestamp + duration) || (items[i].time == timestamp)) {
+
+            return items[i];
+
+        }
+
+    }
+
+    return null;
+
+}
+
 function closestTimestamp(timestamp, duration) {
 
-    //Get the closest position where the media item can be dropped
-    if (timestamp < 0) {
+    if (duration == 0) {
 
-        return 0;
+        return timestamp;
+
+    }
+
+    //If timestamp itself is available, place it there
+    if (timestamp >= 0 && getObstacle(timestamp, duration) == null) {
+
+        return timestamp;
+
+    }
+
+    //Get the closest position where the media item can be dropped
+    closest_left = timestamp;
+    closest_right = timestamp;
+
+    var obstacle = getObstacle(timestamp, duration);
+
+    while (obstacle) {
+
+        closest_left = obstacle.time - duration;
+
+        obstacle = getObstacle(closest_left, duration);
+
+    }
+
+    //Don't go below zero
+    if (closest_left < 0) {
+
+        closest_left = -Infinity;
 
     }
 
 
-    return timestamp;
+
+    if (timestamp < 0) {
+
+        closest_right = 0;
+
+    }
+
+    obstacle = getObstacle(closest_right, duration);
+
+    while (obstacle) {
+
+        closest_right = obstacle.time + obstacle.duration;
+
+        obstacle = getObstacle(closest_right, duration);
+
+    }
+
+    if (Math.abs(closest_left - timestamp) < Math.abs(closest_right - timestamp)) {
+
+        return closest_left;
+
+    } else {
+
+        return closest_right;
+
+    }
 
 }
 
