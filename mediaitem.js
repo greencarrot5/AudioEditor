@@ -8,6 +8,13 @@ class MediaItem {
 
         this.track = 0;
 
+        this.audioElement = document.createElement("audio");
+        this.audioElement.setAttribute("src", URL.createObjectURL(this.file));
+
+        this.soundtrack = audioContext.createMediaElementSource(this.audioElement);
+
+        this.soundtrack.connect(audioContext.destination);
+
     }
 
     render() {
@@ -19,6 +26,20 @@ class MediaItem {
 
         pencil.fillRect(x, heightOfTrack(0), this.duration*pixels_per_second, canvas.height/MAX_TIMELINES);
         pencil.strokeRect(x, heightOfTrack(0), this.duration*pixels_per_second, canvas.height/MAX_TIMELINES);
+
+    }
+
+    play(time=0) {
+
+        this.audioElement.currentTime = time;
+
+        this.audioElement.play();
+
+    }
+
+    stop() {
+
+        this.audioElement.pause();
 
     }
 

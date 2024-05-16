@@ -217,6 +217,7 @@ function renderTimelines() {
     //Display timestamps
     pencil.fillStyle = "#ffffff";
     pencil.strokeStyle = "#ffffff";
+    pencil.lineWidth = canvas.height / 400;
 
     var division = getBestDivision(timeline_span);
 
@@ -249,8 +250,4 @@ function renderTimelines() {
 
     }
 
-    window.requestAnimationFrame(renderTimelines);
-
 }
-
-renderTimelines();
