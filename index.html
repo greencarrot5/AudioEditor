@@ -7,6 +7,7 @@
         <header id="header">
 
         </header>
+        <div id="rendering-progress"><div id="rendering-progress-message">0.0%</div><canvas id="rendering-progress-canvas"></canvas></div>
         <div class="container-horizontal">
             <div id="media">
                 <div id="media-button">
@@ -20,7 +21,7 @@
             </div>
             <div id="options">
                 <div id="export-button">
-                    <button>Export audio</button>
+                    <button onclick="render();">Export audio</button>
                 </div>
             </div>
         </div>
@@ -33,5 +34,8 @@
         <script src="drag-timeline.js"></script>
         <script src="audiostream.js"></script>
         <script src="mainloop.js"></script>
+        <script src="render.js"></script>
+
+        <script src="audioEncoder.js"></script>
     </body>
 </html>

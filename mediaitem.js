@@ -43,4 +43,14 @@ class MediaItem {
 
     }
 
+    getBuffer(context) {
+
+        return fetch(this.audioElement.src).then(
+            (response) => response.arrayBuffer()
+        ).then(
+            (buffer) => {return context.decodeAudioData(buffer)}
+        );
+
+    }
+
 }
