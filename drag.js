@@ -12,8 +12,6 @@ window.addEventListener("dragstart", function(e) {
 
     }
 
-    console.log(e);
-
 });
 
 function pickItem(e) {

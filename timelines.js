@@ -108,7 +108,7 @@ function getObstacle(timestamp, duration) {
 
     for (var i=0;i<items.length;i++) {
 
-        if ((items[i].time > timestamp && items[i].time < timestamp + duration) || (items[i].time + items[i].duration > timestamp && items[i].time + items[i].duration < timestamp + duration) || (items[i].time > timestamp && items[i].time + items[i].duration < timestamp + duration) || (items[i].time == timestamp)) {
+        if ((items[i].time >= timestamp && items[i].time < timestamp + duration) || (items[i].time + items[i].duration > timestamp && items[i].time + items[i].duration <= timestamp + duration) || (items[i].time > timestamp && items[i].time + items[i].duration < timestamp + duration)) {
 
             return items[i];
 
@@ -174,6 +174,8 @@ function closestTimestamp(timestamp, duration) {
 
     }
 
+    console.log("Left: " + Math.abs(closest_left - timestamp) + ", right: " + Math.abs(closest_right - timestamp));
+
     if (Math.abs(closest_left - timestamp) < Math.abs(closest_right - timestamp)) {
 
         return closest_left;
@@ -183,6 +185,26 @@ function closestTimestamp(timestamp, duration) {
         return closest_right;
 
     }
+
+}
+
+function selectedMediaItem(x, y) {
+
+    var result = null;
+
+    var timestamp = xToTime(x);
+
+    for (var i=0;i<items.length;i++) {
+
+        if (timestamp >= items[i].time && timestamp <= items[i].time + items[i].duration && y >= heightOfTrack(items[i].track) && y <= heightOfTrack(items[i].track) + canvas.height/MAX_TIMELINES) {
+
+            result = items[i];
+
+        }
+
+    }
+
+    return result;
 
 }
 
@@ -239,9 +261,7 @@ function renderTimelines() {
 
     }
 
-    //Render shadow
-    pencil.fillStyle = "#081c07";
-    pencil.fillRect(shadow.x - canvas_position.left, heightOfTrack(0), shadow.width*pixels_per_second, canvas.height/MAX_TIMELINES);
+    
 
     //Render media items
     for (var i=0;i<items.length;i++) {
@@ -249,5 +269,9 @@ function renderTimelines() {
         items[i].render();
 
     }
+
+    //Render shadow
+    pencil.fillStyle = "#081c07";
+    pencil.fillRect(shadow.x - canvas_position.left, heightOfTrack(0), shadow.width*pixels_per_second, canvas.height/MAX_TIMELINES);
 
 }

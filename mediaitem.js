@@ -19,7 +19,16 @@ class MediaItem {
 
     render() {
 
-        pencil.fillStyle = "#3fcd37";
+        if (currentlySelected.includes(this)) {
+
+            pencil.fillStyle = "#6ffd67";
+
+        } else {
+
+            pencil.fillStyle = "#3fcd37";
+
+        }
+
         pencil.strokeStyle = "#62ef59";
 
         var x = (this.time - timeline_start) * pixels_per_second + OFFSET;

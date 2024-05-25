@@ -42,6 +42,12 @@ canvas.addEventListener("mouseup", function(e) {
 
     }
 
+    if (selectedMediaItem(e.pageX - canvas_position.left, e.pageY - canvas_position.top)) {
+
+        return;
+        
+    }
+
     cursor_timestamp = Math.max(0, xToTime(e.clientX - canvas_position.left));
 
     if (audioPlaying) {
