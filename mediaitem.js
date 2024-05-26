@@ -1,9 +1,10 @@
 class MediaItem {
 
-    constructor(file, time, duration) {
+    constructor(input, time, duration) {
 
-        this.file = file;
+        this.file = input.files[0];
         this.time = time;
+
         this.duration = duration;
 
         this.track = 0;
@@ -31,7 +32,7 @@ class MediaItem {
 
         pencil.strokeStyle = "#62ef59";
 
-        var x = (this.time - timeline_start) * pixels_per_second + OFFSET;
+        var x = timeToX(this.time);
 
         pencil.fillRect(x, heightOfTrack(0), this.duration*pixels_per_second, canvas.height/MAX_TIMELINES);
         pencil.strokeRect(x, heightOfTrack(0), this.duration*pixels_per_second, canvas.height/MAX_TIMELINES);

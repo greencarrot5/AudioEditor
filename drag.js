@@ -50,7 +50,7 @@ function dragItem(e) {
     var timestamp = closestTimestamp(hovered_timestamp, currentAudioDuration);
 
     //Convert back to x position
-    var xPosition = (timestamp - timeline_start) * pixels_per_second + OFFSET + canvas_position.left;
+    var xPosition = timeToX(timestamp) + canvas_position.left;
 
     shadow = {
         x: xPosition,
@@ -70,7 +70,7 @@ function dropItem(e) {
 
     var timestamp = closestTimestamp(hovered_timestamp, currentAudioDuration);
 
-    insertMediaItem(new MediaItem(e.srcElement.children[0].files[0], timestamp, currentAudioDuration));
+    insertMediaItem(new MediaItem(e.srcElement.children[0], timestamp, currentAudioDuration));
 
     shadow = {
 

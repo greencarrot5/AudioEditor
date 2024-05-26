@@ -11,8 +11,12 @@ body {
 
 header {
 
+    position: relative;
+
     height: 4%;
     background-color: #3f4552;
+
+    display: flex;
 
 }
 
@@ -61,6 +65,8 @@ button {
     height: 10%;
 
     background-color: #470e73;
+
+    cursor: pointer;
 
 }
 
@@ -153,5 +159,52 @@ canvas {
     border: 1px solid black;
 
     border-radius: 20px;
+
+}
+
+#header > div {
+
+    background-color: #616774;
+
+    width:10%;
+    height: 100%;
+
+    text-align: center;
+
+}
+
+#header > div:hover {
+
+    background-color: #838996;
+
+}
+
+#header > div > div {
+
+    height: 100%;
+
+    vertical-align: middle;
+
+}
+
+#header > div > .toolbar-option {
+
+    background-color: #838996;
+
+    display: none;
+
+}
+
+#header > div:hover > .toolbar-option {
+
+    display: block;
+
+}
+
+#header > div:hover > .toolbar-option:hover {
+
+    background-color: #a5abb8;
+
+    cursor: pointer;
 
 }

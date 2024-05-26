@@ -7,3 +7,5 @@ const MAXIMAL_TIMELINE_SPAN = 3600;
 
 const CURSOR_SIZE = 1.5;
 const CLICK_TIME = 0.2;
+
+const AEPS_PROTOCOL_VERSION = 1;

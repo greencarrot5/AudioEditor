@@ -10,14 +10,18 @@ window.addEventListener("resize", function(e) {
     canvas.width = window.innerWidth - document.getElementById("media").getBoundingClientRect().width - document.getElementById("options").getBoundingClientRect().width;
     canvas.height = window.innerHeight - document.getElementById("header").getBoundingClientRect().height;
 
+    pixels_per_second = canvas.width / timeline_span;
+
+    OFFSET = canvas.width / 50;
+
 });
 
 var timeline_start = 0;
 var timeline_span = 60;
 
-var pixels_per_second = canvas.height / timeline_span;
+var pixels_per_second = canvas.width / timeline_span;
 
-const OFFSET = canvas.width / 50;
+var OFFSET = canvas.width / 50;
 
 items = [];
 
@@ -174,8 +178,6 @@ function closestTimestamp(timestamp, duration) {
 
     }
 
-    console.log("Left: " + Math.abs(closest_left - timestamp) + ", right: " + Math.abs(closest_right - timestamp));
-
     if (Math.abs(closest_left - timestamp) < Math.abs(closest_right - timestamp)) {
 
         return closest_left;
@@ -219,6 +221,9 @@ function renderTimelines() {
     //Calculate relevant values
     canvas_position = canvas.getBoundingClientRect();
 
+    canvas.width = canvas_position.width;
+    canvas.height = canvas_position.height;
+
     //Clear canvas
     pencil.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -246,7 +251,7 @@ function renderTimelines() {
     for (var i=division*Math.floor(timeline_start / division); i <= division*Math.ceil((timeline_start + timeline_span) / division); i += division) {
 
         //Calculate x position
-        var x = (i - timeline_start) * pixels_per_second + OFFSET;
+        var x = timeToX(i);
 
         pencil.beginPath();
         pencil.moveTo(x, heightOfTrack(0));
