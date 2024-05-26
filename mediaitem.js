@@ -3,6 +3,7 @@ class MediaItem {
     constructor(input, time, duration) {
 
         this.file = input.files[0];
+
         this.time = time;
 
         this.duration = duration;

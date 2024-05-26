@@ -166,7 +166,7 @@ async function saveProject() {
 
         var name = current.files[0].name;
 
-        var content = await readFile(current.files[0]);
+        var content = new Uint8Array(await readFile(current.files[0]));
 
         imported.push({"name": name, "content": content});
 
@@ -197,7 +197,7 @@ async function saveProject() {
 
         var name = items[i].file.name;
 
-        var content = await readFile(items[i].file);
+        var content = new Uint8Array(await readFile(items[i].file));
 
         bytes.writeInt(name.length, 2);
 
@@ -284,9 +284,9 @@ async function loadFile(file) {
             input.type = "file";
             input.display = "none";
 
-            var blob = new Blob([content]);
+            var blob = new Blob([content], {type: "audio/mpeg"});
 
-            var file = new File([blob], name);
+            var file = new File([blob], name, {type: "audio/mpeg"});
 
             var datatransfer = new DataTransfer();
 
@@ -321,9 +321,9 @@ async function loadFile(file) {
             input.type = "file";
             input.display = "none";
 
-            var blob = new Blob([content]);
+            var blob = new Blob([content], {type: "audio/mpeg"});
 
-            var file = new File([blob], name);
+            var file = new File([blob], name, {type: "audio/mpeg"});
 
             var datatransfer = new DataTransfer();
 
