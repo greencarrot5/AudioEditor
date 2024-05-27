@@ -70,7 +70,11 @@ function dropItem(e) {
 
     var timestamp = closestTimestamp(hovered_timestamp, currentAudioDuration);
 
-    insertMediaItem(new MediaItem(e.srcElement.children[0], timestamp, currentAudioDuration));
+    var media_item = new MediaItem(e.srcElement.children[0], timestamp, currentAudioDuration);
+
+    insertMediaItem(media_item);
+
+    addAction(Action.ADD_MEDIA, {item: media_item});
 
     shadow = {
 

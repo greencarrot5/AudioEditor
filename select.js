@@ -25,6 +25,8 @@ window.addEventListener("keydown", function(e) {
 
             var item = currentlySelected[i];
 
+            addAction(Action.REMOVE_MEDIA, {item: item});
+
             var index = items.indexOf(item);
 
             items.splice(index, 1);

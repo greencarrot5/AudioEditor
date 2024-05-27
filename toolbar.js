@@ -266,6 +266,10 @@ async function loadFile(file) {
 
         var imported_amount = bytes.readInt(2);
 
+        //Clear actions
+        actions = [];
+        actions_index = 0;
+
         //Clear imports
         document.getElementById("media-list").innerHTML = "";
 

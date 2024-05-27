@@ -10,6 +10,11 @@
                 <div class="toolbar-option" onclick="saveProject();">Save project</div>
                 <div class="toolbar-option" onclick="openProject();">Open project</div>
             </div>
+            <div id="actions">
+                <div>Actions</div>
+                <div class="toolbar-option" onclick="undoAction();">Undo (Ctrl+Z)</div>
+                <div class="toolbar-option" onclick="redoAction();">Redo (Ctrl+Y)</div>
+            </div>
             <div id="options">
                 <div>Options</div>
             </div>
@@ -47,5 +52,6 @@
         <script src="audioEncoder.js"></script>
 
         <script src="toolbar.js"></script>
+        <script src="actions.js"></script>
     </body>
 </html>

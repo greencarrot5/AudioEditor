@@ -30,7 +30,7 @@ async function render() {
 
     var pc = c.getContext("2d");
 
-    c.clearRect(0, 0, pc.width, pc.height);
+    pc.clearRect(0, 0, c.width, c.height);
 
     var sampleRate = 44100;
 
