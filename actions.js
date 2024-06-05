@@ -1,7 +1,8 @@
 //Action enum
 const Action = {
     ADD_MEDIA: "add media", //{item}
-    REMOVE_MEDIA: "remove media" //{item}
+    REMOVE_MEDIA: "remove media", //{item}
+    MOVE_MEDIA: "move_media" //{item, from, to}
 };
 
 var actions = [];
@@ -23,6 +24,7 @@ function addAction(type, data) {
 function undoAction() {
 
     if (actions_index == 0) {
+
         return; //Nothing to undo
     }
 
@@ -40,6 +42,10 @@ function undoAction() {
 
         case Action.REMOVE_MEDIA:
             insertMediaItem(action.data.item);
+            break;
+
+        case Action.MOVE_MEDIA:
+            action.data.item.time = action.data.from;
             break;
 
         default:
@@ -69,6 +75,10 @@ function redoAction() {
             var index = items.indexOf(action.data.item);
 
             items.splice(index, 1);
+            break;
+
+        case Action.MOVE_MEDIA:
+            action.data.item.time = action.data.to;
             break;
 
         default:

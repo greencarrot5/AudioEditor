@@ -11,7 +11,7 @@ canvas.addEventListener("mousedown", function(e) {
 
 window.addEventListener("mousemove", function(e) {
 
-    if (dragging_canvas) {
+    if (dragging_canvas && !moving_item) {
 
         //Change timeline_start so the cursor keeps clamping the same timestamp
         timeline_start = clamped_timestamp - (e.clientX - canvas_position.left - OFFSET) / pixels_per_second;

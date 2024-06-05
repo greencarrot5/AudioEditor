@@ -9,3 +9,5 @@ const CURSOR_SIZE = 1.5;
 const CLICK_TIME = 0.2;
 
 const AEPS_PROTOCOL_VERSION = 1;
+
+const MOVE_THRESHOLD = 0;
