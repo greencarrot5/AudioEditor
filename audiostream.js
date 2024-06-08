@@ -10,6 +10,16 @@ window.addEventListener("click", function(e) {
 
 });
 
+window.addEventListener("keydown", function(e) {
+
+    if (audioContext == null) {
+
+        audioContext = new AudioContext();
+
+    }
+
+});
+
 var cursor_timestamp = 0;
 var lastMouseDown = 0;
 

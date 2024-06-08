@@ -346,3 +346,23 @@ async function loadFile(file) {
     }
 
 }
+
+window.addEventListener("keydown", function(e) {
+
+    if (e.key == "s" && ctrl_pressed) {
+
+        e.preventDefault();
+
+        saveProject();
+
+    }
+
+    if (e.key == "o" && ctrl_pressed) {
+
+        e.preventDefault();
+
+        openProject();
+
+    }
+
+});
